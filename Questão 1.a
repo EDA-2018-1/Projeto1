@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define TAM 10
+
+int main(){
+
+int i,entradas[TAM], pesos[TAM], multiplica[TAM], liminarT;
+int somaP = 0;
+
+printf("\t\tDEFINA O VALOR DA LIMIAR T?\n");
+scanf("%d", &liminarT);
+
+    printf("\t\tDEFINA AS 10 ENTRADAS:\n");
+
+for(i=0; i<TAM; i++){
+   scanf("%d", &entradas[i]);
+}
+
+    printf("\t\tDEFINA OS 10 PESOS:\n");
+
+for(i=0; i<TAM; i++){
+    scanf("%d", &pesos[i]);
+}
+
+for(i=0; i<TAM; i++){
+
+    multiplica[i] = (entradas[i] * pesos[i]);
+    somaP = somaP + multiplica[i];
+}
+    printf("SOMAP = %d", somaP);
+
+return 0;
+}
+
