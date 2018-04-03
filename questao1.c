@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #define TAMANHO 10
 
-int fneuronio(double *, double *, int, int);
+void fneuronio(double*, double*, int, int, int*);
 
 int main(){
     double entradas[TAMANHO] = {0};
     double pesos[TAMANHO] = {0};
     double limiarT = 0.0;
-    int i;
-    int *resultado;
+    int i, memory;
+    int* resultado = &memory;
 
     printf("Entre com os valores:\n");
 
@@ -26,30 +26,30 @@ int main(){
     printf("Entre com o limiar T:\n");
     scanf("%lf", &limiarT);
 
-    resultado = fneuronio(entradas, pesos, limiarT, TAMANHO);
-    
-    if(resultado == 1){
+    fneuronio(entradas, pesos, limiarT, TAMANHO, resultado);
+
+    if(*resultado == 1){
         printf("Neurônio ativado!\n");
-    } else {
+    }else{
         printf("Neurônio inibido!\n");
     }
-    
+
     return 0;
 }
 
-int fneuronio(double *entradas, double *pesos, int limiarT, int tamanho){
+void fneuronio(double* entradas, double* pesos, int limiarT, int tamanho, int* resultado){
     double SOMAP = 0.0;
     int j;
 
     for(j = 0; j < tamanho; j++){
         SOMAP += entradas[j]*pesos[j];
     }
-    
-    // printf("Soma Ponderada: %.2f\n", SOMAP);
+
+// printf("Soma Ponderada: %.2f\n", SOMAP);
 
     if(SOMAP > limiarT){
-        return 1;
+        *resultado = 1;
     } else {
-        return 0;
+        *resultado = 0;
     }
 }
