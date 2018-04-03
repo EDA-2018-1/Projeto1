@@ -3,8 +3,8 @@
 #define TAMANHO 3
 
 int* recebe_notas(float*, int, int*);
-void conta_notas(int*, int, int* aprovados, int* reprovados);
-int percent_aprov(int aprovados, int reprovados, float* per_aprovados, float* per_reprovados);
+void conta_notas(int*, int, int*, int*);
+int percent_aprov(int*, int*, int*, int*,int);
 
 int main(){
     float notas[TAMANHO];
@@ -12,10 +12,15 @@ int main(){
     int* p;
     int* apro;
     int* repro;
-    int i, aprovados=0, reprovados=0;
+    int* per_apro;
+    int* per_repro;
+    int i, aprovados=0, reprovados=0, per_aprovados=0, per_reprovados=0;
+    int maioria;
 
     apro = &aprovados;
     repro = &reprovados;
+    per_apro= &per_aprovados;
+    per_repro= &per_reprovados;
 
     printf("Entre com as notas:\n");
     for(i = 0; i < TAMANHO; i++){
@@ -28,11 +33,18 @@ int main(){
 
     p = recebe_notas(notas,TAMANHO,APR);
     conta_notas(APR,TAMANHO,apro,repro);
+    maioria = percent_aprov(apro,repro,per_apro,per_repro,TAMANHO);
 
-    printf("%d\n", APR[1]);
-    printf("%d\n", p[1]);
-    printf("Numero de aprovados: %d\n", *apro);
-    printf("Numero de reprovados: %d\n", *repro);
+    printf("Quantidade de aprovados: %d\n", *apro);
+    printf("Quantidade de reprovados: %d\n", *repro);
+    printf("Percentual de aprovados: %d\n", *per_apro);
+    printf("Percentual de rerovados: %d\n", *per_repro);
+
+    if(maioria == 1){
+      printf("Mais da medate da turma foi aprovada!\n");
+    }else{
+      printf("Menos da medate da turma foi aprovada!\n");
+    }
     return 0;
 }
 
@@ -61,3 +73,16 @@ void conta_notas(int* apr, int tamanho, int* aprovados, int* reprovados){
       }
     }
 }
+
+int percent_aprov(int* apro, int* repro, int* per_apro,
+  int* per_repro, int tamanho){
+
+    *per_repro = (((*repro)*100)/tamanho);
+    *per_apro = ((float)*apro/tamanho)*100;
+
+    if(*per_apro >= 51){
+      return 1;
+    }else{
+      return 0;
+    }
+  }
